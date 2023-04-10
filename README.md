@@ -69,3 +69,94 @@ To update the rust version to latest stable build
 ```bash
 rustup
 ```
+
+# Chapter - 2: Guessing game
+
+### Take input
+```rust
+use std::io;
+
+fn main() {
+    let mut input = String::new(); // empty string
+    io::stdin()
+        .read_line(&mut guess)
+        .expect("Failed to take input");
+
+    println!("Input value: {}", input);
+}
+```
+
+### Convert String to another type
+
+```rust
+fn main() {
+    let number = "10";
+    let number = number.trim().parse().expect("Fail to parse the number");
+}
+```
+
+### Compare two numbers
+Comparison in rust returns Ordering enum so we can use match to handle that.
+```rust
+use std::cmp::Ordering;
+
+fn main() {
+    let number = 10;
+    let another_number = 100;
+    match number.cmp(&another_number) {
+        Ordering::Less => println!("Smaller number"),
+        Ordering::Equal => println!("Equal numbers"),
+        Ordering::Greater => println!("Greater number")
+    };
+}
+```
+
+### Generate a random number
+First add the `rand` dependency
+```bash
+cargo add rand
+```
+
+```rust
+use rand::Rng;
+
+fn main() {
+    let secret_number = rand::thread_rng().gen_range(1..=100); // generating a random number in the range [1, 100]
+    println!("Random number: {}", secret_number);
+}
+```
+
+### Add loop
+Currently, it will only take the input once but we want to take input till correct number is guessed.
+
+```rust
+loop {
+    ... generate random number, take input, convert string to integer
+
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Equal => {
+            println!("You guessed it right!");
+            break;
+        }
+        Ordering::Greater => println!("Too big!")
+    }
+}
+```
+
+### Handle invalid input
+If we try to parse a string into an integer with the non-digit value then it will throw an error.
+Since `parse()` returns the `Result` enum using which we can handle the error.
+
+```rust
+fn main() {
+    let number = "10c";
+    number: u32 = match number.parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Please type a number!");
+            continue;
+        } // _ denotes the catchall value
+    }
+}
+```

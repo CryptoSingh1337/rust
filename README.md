@@ -98,6 +98,10 @@ fn main() {
 
 ### Compare two numbers
 Comparison in rust returns Ordering enum so we can use match to handle that.
+
+A `match` expression is made up of *arms*. An arm consists of a pattern to match against, and the code that
+should be run if the value given to `match` fits that arm's pattern.
+
 ```rust
 use std::cmp::Ordering;
 
@@ -277,6 +281,8 @@ fn main() {
 }
 ```
 
+> Rust does not support ++ and -- operators
+
 ##### Boolean
 Boolean is of one byte in size.
 ```rust
@@ -450,5 +456,113 @@ Doc comments: supports markdown notation inside
 /// ```
 fn add_one(x: i32) -> i32 {
     x + 1
+}
+```
+
+### 3.5 Control flow
+
+#### If expression
+```rust
+fn main() {
+    if condition {
+        statements
+    } else {
+        statements
+    }
+}
+```
+
+> In Rust, it is mandatory to create the if block with curly brackets otherwise compiler will give error
+
+If the condition isn't a `bool`, we'll get and error.
+```rust
+fn main() {
+    let n = 5;
+    if n {
+        println!("Number was five");
+    }
+}
+```
+Rust expected a `bool` but got an integer. Unlike other languages like JavaScript, Rust will not
+automatically try to convert non-Boolean types to a Boolean.
+
+#### Multiple conditions with `else if`
+```rust
+fn main() {
+    let number = 6;
+
+    if number % 4 == 0 {
+        statements
+    } else if number % 3 == 0 {
+        statements
+    } else if number % 2 == 0 {
+        statements
+    } else {
+        statements
+    }
+}
+```
+
+#### Using `if` in a `let` statement
+```rust
+fn main() {
+    let number = if condition { 5 } else { 6 };
+    let number = if condition { 5 } else { "x" };   // this will result in error because it is creating ambiguity
+}
+```
+
+#### Loops
+
+##### `loop` keyword
+```rust
+fn main() {
+    loop {
+
+        if condition {
+            break;
+        }
+    }
+}
+```
+
+##### Returning values from loop
+```rust
+fn main() {
+    let mut counter = 0;
+    let result = loop {
+        counter += 1;
+
+        if counter == 10 {
+            break counter * 2;
+        }
+    };
+    println!("The result is {}", result);   // The result is 20
+}
+```
+
+##### `While` loop
+```rust
+fn main() {
+    let mut idx = 0;
+    let a = [1, 2, 3, 4, 5];
+    while idx != a.len() {
+        println!("a[{}]: {}", idx, a[idx]);
+        idx += 1;
+    }
+}
+```
+
+##### `For` loop
+```rust
+fn main() {
+    let a = [1, 2, 3, 4, 5];
+
+    for element in a {
+        println!("Number: {}", element);
+    }
+
+    for number in (1..=5).rev() {
+        println!("Number: {}", number);
+    }
 }
 ```

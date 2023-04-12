@@ -346,3 +346,79 @@ fn main() {
 ```
 
 ### 3.3 Functions
+
+In rust, functions are created using the keyword `fn`. `main` function is the entry point of many programs.
+Rust code uses *snake_case* as the conventional style for function and variable names.
+
+Functions must have type specified with the parameters.
+
+```rust
+fn print_labeled_measurement(value: i32, unit_label: char) -> () {
+    println!("The measurement is: {}{}", value, unit_label);
+}
+
+fn main() {
+    print_labeled_measurement(10, 'M');
+}
+```
+
+#### Statements and Expressions
+
+Function bodies are made up of a series of statements optionally ending in an expression.
+- **Statements** are instructions that perform some action and do not return a value.
+- **Expressions** evaluate to a resultant value.
+
+> `let` keyword is a statement, thus it does not return a value. So we cannot do let x = (let y = 6);
+
+A new scope block created with curly brackets is an expression.
+
+```rust
+fn main() {
+    let y = {
+        let x = 3;
+        x + 1
+    };
+    println!("The value of y is: {}", y);
+}
+```
+This is the expression in above example:
+```rust
+{
+    let x = 3;
+    x + 1
+}
+```
+
+#### Functions with return values
+
+Functions can return values to the code that calls them. We must declare the type after an arrow (`->`).
+In Rust, the return value of the function is same as the value of the final expression in the block of the body of a function.
+
+Although we can use `return` keyword to return from the function, but most functions return te last expression implicitly.
+
+> Function declaration order does not matter in Rust but it must be in the scope.
+
+```rust
+fn five() -> u8 {
+    5
+}
+
+fn main() {
+    let x = five();
+    println!("X: {}", x);
+}
+```
+In the above example, function implicitly return the value `5` because as mentioned above **last expression without semi-colon** return
+the value implicitly.
+
+```rust
+fn plus_one(x: u8) -> u8 {
+    x + 1;
+}
+
+fn main() {
+    let x = plus_one(10);   // invalid because the last line becomes the statement instead of an expression
+}
+```
+
+

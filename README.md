@@ -232,7 +232,7 @@ A scalar type represents a single value. Rust has four primary scalar types:
 **integers, floating-point numbers, boolean, and character**.
 > Signed numbers are stored using two's complement representation.
 
-##### Integer types:
+##### Integer types
 Integer types default to `i32`.
 
 | **Length** | **Signed** | **Unsigned** |
@@ -244,7 +244,7 @@ Integer types default to `i32`.
 |   128-bit  |    i128    |     u128     |
 |    arch    |    isize   |     usize    |
 
-##### Integer literals:
+##### Integer literals
 | **Number literals** | **Example** |
 |:-------------------:|:-----------:|
 |       Decimal       |    65_536   |
@@ -253,7 +253,7 @@ Integer types default to `i32`.
 |        Binary       | 0b1111_0000 |
 |    Byte (u8 only)   |     b'A'    |
 
-##### Floating-point types:
+##### Floating-point types
 Rust's floating-point types are `f32` and `f64`, which are 32 bits and 64 bits in size.
 The default type is `f64`. All floating-point types are signed.
 
@@ -277,7 +277,7 @@ fn main() {
 }
 ```
 
-##### Boolean:
+##### Boolean
 Boolean is of one byte in size.
 ```rust
 fn main() {
@@ -286,7 +286,7 @@ fn main() {
 }
 ```
 
-##### Character types:
+##### Character types
 Char is of four bytes in size and represents a Unicode scalar value (similar to Java).
 ```rust
 fn main() {
@@ -296,11 +296,11 @@ fn main() {
 }
 ```
 
-#### Compound types:
+#### Compound types
 Compound types can group multiple values into one type. Rust has two primitive compound types:
 **tuples and arrays**.
 
-##### Tuple:
+##### Tuple
 Tuple is used to group together a number of values with different types into one compound type.
 Tuples have a fixed length: once declared, they cannot grow or shink in size.
 It is created using a comma-seperated list of values inside paranthesis.
@@ -317,7 +317,7 @@ fn main() {
 }
 ```
 
-##### Array:
+##### Array
 It stores the value of same type. Arrays in Rust have a fixed length.
 Arrays stores data on the stack rather than the heap. An array isn't as flexible
 as the `vector` type.

@@ -1,6 +1,10 @@
 # Learning RUST
 
-## Hello World program
+# Table of content
+- [Hello world program](#hello-world)
+- [Chapter - 3: Variable and mutability](#variable-mutability)
+
+## Hello World program [](#){name=hello-world}
 File - main.rs
 ```rust
 fn main() {
@@ -162,7 +166,7 @@ fn main() {
 }
 ```
 
-# Chapter - 3: Variable and mutability
+# Chapter - 3: Variable and mutability [](#){name=variable-mutability}
 
 Variables in rust are by default immutable.
 

@@ -421,4 +421,34 @@ fn main() {
 }
 ```
 
+### 3.4 Comments
 
+Rust has two kinds of comments: *line comments* and *doc comments*.
+
+Line comments:
+```rust
+// This function increments the value of the argument by 1 and returns that.
+fn plus_one(x: u8) -> u8 {
+    x + 1
+}
+```
+
+Doc comments: supports markdown notation inside
+
+```rust
+/// Adds one to the number given.
+///
+/// # Examples
+///
+/// ```
+/// let five = 5;
+///
+/// assert_eq!(6, add_one(5));
+/// # fn add_one(x: i32) -> i32 {
+/// #     x + 1
+/// # }
+/// ```
+fn add_one(x: i32) -> i32 {
+    x + 1
+}
+```

@@ -68,107 +68,12 @@ This will generate the binary in `target/release/hello_world` with optimizations
 
 To update the rust version to latest stable build
 ```bash
-rustup
+rustup update
 ```
 
-## Chapter - 2: Guessing game
+## Chapter - 2: Common programming concepts
 
-### Take input
-```rust
-use std::io;
-
-fn main() {
-    let mut input = String::new(); // empty string
-    io::stdin()
-        .read_line(&mut guess)
-        .expect("Failed to take input");
-
-    println!("Input value: {}", input);
-}
-```
-
-### Convert String to another type
-
-```rust
-fn main() {
-    let number = "10";
-    let number = number.trim().parse().expect("Fail to parse the number");
-}
-```
-
-### Compare two numbers
-Comparison in rust returns Ordering enum so we can use match to handle that.
-
-A `match` expression is made up of *arms*. An arm consists of a pattern to match against, and the code that
-should be run if the value given to `match` fits that arm's pattern.
-
-```rust
-use std::cmp::Ordering;
-
-fn main() {
-    let number = 10;
-    let another_number = 100;
-    match number.cmp(&another_number) {
-        Ordering::Less => println!("Smaller number"),
-        Ordering::Equal => println!("Equal numbers"),
-        Ordering::Greater => println!("Greater number")
-    };
-}
-```
-
-### Generate a random number
-First add the `rand` dependency
-```bash
-cargo add rand
-```
-
-```rust
-use rand::Rng;
-
-fn main() {
-    let secret_number = rand::thread_rng().gen_range(1..=100); // generating a random number in the range [1, 100]
-    println!("Random number: {}", secret_number);
-}
-```
-
-### Add loop
-Currently, it will only take the input once but we want to take input till correct number is guessed.
-
-```rust
-loop {
-    ... generate random number, take input, convert string to integer
-
-    match guess.cmp(&secret_number) {
-        Ordering::Less => println!("Too small!"),
-        Ordering::Equal => {
-            println!("You guessed it right!");
-            break;
-        }
-        Ordering::Greater => println!("Too big!")
-    }
-}
-```
-
-### Handle invalid input
-If we try to parse a string into an integer with the non-digit value then it will throw an error.
-Since `parse()` returns the `Result` enum using which we can handle the error.
-
-```rust
-fn main() {
-    let number = "10c";
-    number: u32 = match number.parse() {
-        Ok(num) => num,
-        Err(_) => {
-            println!("Please type a number!");
-            continue;
-        } // _ denotes the catchall value
-    }
-}
-```
-
-## Chapter - 3: Common programming concepts
-
-### 3.1 Variables and mutability
+### 2.1 Variables and mutability
 
 Variables in rust are by default immutable.
 
@@ -219,7 +124,7 @@ fn main() {
 }
 ```
 
-### 3.2 Data types
+### 2.2 Data types
 
 Rust has two data type subsets: **Scalar** and **Compound**.
 We must specify the data type of variable while declaring a variable.
@@ -351,7 +256,7 @@ fn main() {
 }
 ```
 
-### 3.3 Functions
+### 2.3 Functions
 
 In rust, functions are created using the keyword `fn`. `main` function is the entry point of many programs.
 Rust code uses *snake_case* as the conventional style for function and variable names.
@@ -367,6 +272,23 @@ fn main() {
     print_labeled_measurement(10, 'M');
 }
 ```
+
+#### The println macro
+
+In rust, `println!` is a macro as in the end there is `!` which indicates its a macro not a function. It is use to print the 
+output in the terminal. We can use this similar to the `printf` which can take dynamic values as an argument.
+- Macros use exclamation point to call/invoke.
+- Generate additional Rust code.
+- Data can be 
+
+Example:
+```rust
+println!("Number is: {:?}", input_number);  // Debug print
+println!("Number is: {}", input_number);    // This is also valid
+println!("Number is: {input_number:?}");    // Print the variable directly
+println!("Number is: {input_number}");      // This is also valid but not the debug print
+```
+> Note: In println macro, :? denotes that we want to print this in debug mode only.
 
 #### Statements and Expressions
 
@@ -400,7 +322,7 @@ This is the expression in above example:
 Functions can return values to the code that calls them. We must declare the type after an arrow (`->`).
 In Rust, the return value of the function is same as the value of the final expression in the block of the body of a function.
 
-Although we can use `return` keyword to return from the function, but most functions return te last expression implicitly.
+Although we can use `return` keyword to return from the function, but most functions return the last expression implicitly.
 
 > Function declaration order does not matter in Rust but it must be in the scope.
 
@@ -427,7 +349,7 @@ fn main() {
 }
 ```
 
-### 3.4 Comments
+### 2.4 Comments
 
 Rust has two kinds of comments: *line comments* and *doc comments*.
 
@@ -459,7 +381,7 @@ fn add_one(x: i32) -> i32 {
 }
 ```
 
-### 3.5 Control flow
+### 2.5 Control flow
 
 #### If expression
 ```rust
@@ -514,6 +436,8 @@ fn main() {
 #### Loops
 
 ##### `loop` keyword
+
+This can be use as infinite loop also.
 ```rust
 fn main() {
     loop {
@@ -563,6 +487,101 @@ fn main() {
 
     for number in (1..=5).rev() {
         println!("Number: {}", number);
+    }
+}
+```
+
+## Guessing game
+
+### Take input
+```rust
+use std::io;
+
+fn main() {
+    let mut input = String::new(); // empty string
+    io::stdin()
+        .read_line(&mut guess)
+        .expect("Failed to take input");
+
+    println!("Input value: {}", input);
+}
+```
+
+### Convert String to another type
+
+```rust
+fn main() {
+    let number = "10";
+    let number = number.trim().parse().expect("Fail to parse the number");
+}
+```
+
+### Compare two numbers
+Comparison in rust returns Ordering enum so we can use match to handle that.
+
+A `match` expression is made up of *arms*. An arm consists of a pattern to match against, and the code that
+should be run if the value given to `match` fits that arm's pattern.
+
+```rust
+use std::cmp::Ordering;
+
+fn main() {
+    let number = 10;
+    let another_number = 100;
+    match number.cmp(&another_number) {
+        Ordering::Less => println!("Smaller number"),
+        Ordering::Equal => println!("Equal numbers"),
+        Ordering::Greater => println!("Greater number")
+    };
+}
+```
+
+### Generate a random number
+First add the `rand` dependency
+```bash
+cargo add rand
+```
+
+```rust
+use rand::Rng;
+
+fn main() {
+    let secret_number = rand::thread_rng().gen_range(1..=100); // generating a random number in the range [1, 100]
+    println!("Random number: {}", secret_number);
+}
+```
+
+### Add loop
+Currently, it will only take the input once but we want to take input till correct number is guessed.
+
+```rust
+loop {
+    ... generate random number, take input, convert string to integer
+
+    match guess.cmp(&secret_number) {
+        Ordering::Less => println!("Too small!"),
+        Ordering::Equal => {
+            println!("You guessed it right!");
+            break;
+        }
+        Ordering::Greater => println!("Too big!")
+    }
+}
+```
+
+### Handle invalid input
+If we try to parse a string into an integer with the non-digit value then it will throw an error.
+Since `parse()` returns the `Result` enum using which we can handle the error.
+
+```rust
+fn main() {
+    let number = "10c";
+    number: u32 = match number.parse() {
+        Ok(num) => num,
+        Err(_) => {
+            println!("Please type a number!");
+            continue;
+        } // _ denotes the catchall value
     }
 }
 ```

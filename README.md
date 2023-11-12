@@ -491,6 +491,38 @@ fn main() {
 }
 ```
 
+#### `Match` keyword
+
+`match` allows us to compare a value against a series of patterns and then execute code based on which pattern matches simiar
+to `switch` case. It is also use for flow control. It is exhaustive i.e., all options/cases must be considered. It works on
+expression not on the statements. We can handle any other case using `_`.
+
+**`match` v/s `else-if`**:
+- `match` will be checked by the compiler, if a new possibility is added, we will be notified.
+- `else-if` is not checked by the compiler, if a new possibility is added then code may encounter with a new bug.
+
+```rust
+fn main() {
+    let bool_value = false;
+    match bool_value {
+        true => println!("Its true"),
+        false => println!("Its false")
+    }
+}
+```
+
+```rust
+fn main() {
+    let x = 4;
+    match x {
+        1 => println!("It's 1"),
+        2 => println!("It's 2"),
+        4 => println!("It's 4"),
+        _ => println!("It's something else")    // Default case
+    }
+}
+```
+
 ## Guessing game
 
 ### Take input

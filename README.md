@@ -227,6 +227,8 @@ fn main() {
     println!("{:?}", tuple);
 }
 ```
+> Note: it is recommended to use tuple for only 1-3 values not more than that it becomes quite confusing
+> if we have more than 3 variable to access.
 
 ##### Array
 It stores the value of same type. Arrays in Rust have a fixed length.
@@ -523,6 +525,70 @@ fn main() {
 }
 ```
 
+## Chapter - 3: Enums
+
+1. Data that can be one of multiple different possibility, each possibility is called a "variant".
+2. Provides information about your program to the compiler, more robust program.
+3. Enums can be only one variant at a time.
+4. More robust programs when paired with match.
+
+```rust
+enum Direction {
+    Up,
+    Down,
+    Left,
+    Right
+}
+
+fn which_way(go: Direction) {
+    match go {
+        Direction::Up => "Up",
+        Direction::Down => "Down",
+        Direction::Left => "Left",
+        Direction::Right => "Right"
+    }
+}
+```
+
+We can use struct but the problem will be how we can pass that in function because each struct will be different.
+We can also pass some data with the enum type while creating using the constructor.
+
+```rust
+enum Direction {
+    Up(String),
+    Down(String),
+    Left(String),
+    Right(String)
+}
+```
+
+## Chapter - 4: Struct
+
+1. A type that contains multiple pieces of data.
+    i. All or nothing - cannot have some pieces of data and not others.
+2. Each piece of data is called a 'field'.
+3. Makes working with data easier.
+    i. Similar data can be grouped together.
+
+
+```rust
+struct Box {
+    width: u32,
+    height: u32,
+    depth: u32
+}
+
+fn main() {
+    let cube = Box {
+        width: 3,
+        height: 3,
+        depth: 3
+    };
+
+    println!("The cube width: {cube.width:?}, height: {cube.height:?}, depth: {cube.depth:?}");
+}
+```
+
 ## Guessing game
 
 ### Take input
@@ -532,7 +598,7 @@ use std::io;
 fn main() {
     let mut input = String::new(); // empty string
     io::stdin()
-        .read_line(&mut guess)
+        .read_line(&mut input)
         .expect("Failed to take input");
 
     println!("Input value: {}", input);

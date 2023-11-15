@@ -589,6 +589,57 @@ fn main() {
 }
 ```
 
+## Chapter - 5: Ownership
+
+Rust uses the concept of the ownership model which states that if we create a variable in a function that function is the owner of that variable.
+Once the function executed completely then that variable will be deleted.
+
+```rust
+enum Light {
+    Bright,
+    Dull
+}
+
+fn display_light(light: Light) {
+    match light {
+        Light::Bright => println!("Bright light"),
+        Light::Dull => println!("Dull light")
+    }
+}
+
+fn main() {
+    let dull = Light::Dull;
+    display_light(dull);    // till this point program will get compile
+    display_light(dull);    // this is the error
+}
+```
+In the above example, `main` function is the owner of the `dull` variable and when it call `display_light` function the ownership is transfered (or moved) to `display_light` function and when `display_light` executed completely then light variable got deleted. So when the pointer returns back to `main` function the `dull` variable already got deleted.
+
+To fix this, we should use the borrowing concept which is similar to passing the reference not the ownership.
+
+```rust
+fn display_light(light: &Light) {
+    match light {
+        Light::Bright => println!("Bright light"),
+        Light::Dull => println!("Dull light")
+    }
+}
+
+fn main() {
+    let dull = Light::Dull;
+    display_light(&dull);
+    display_light(&dull);
+}
+```
+This will work perfectly fine because the owner of the `dull` is currently the `main` function only and we are only passing the reference of the `dull` to the `display_light` function which is perfectly fine. The `main` function will delete this `dull` variable.
+
+- Memory must be managed in some way to prevent leaks.
+- Rust uses `ownership` to accomplish memory management.
+    - The *owner* of data must clean up the memory.
+    - This occurs automatically at the end of the scope.
+- Default behavior is to 'move' memory to a new owner.
+    - Use an  ampersand `&` to allow code to `borrow` memory.
+
 ## Guessing game
 
 ### Take input

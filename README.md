@@ -570,6 +570,7 @@ enum Direction {
 3. Makes working with data easier.
     i. Similar data can be grouped together.
 
+> Note: Struct can only have owned items not the borrowed items
 
 ```rust
 struct Box {
@@ -723,6 +724,32 @@ fn main() {
 }
 ```
 > Note: If we are iteratoring vector using for loop so vector ownership got transfer to iterator and we are trying to access vector to print the length so that vector got deleted.
+
+## Chapter - 8: String
+
+#### `String` v/s `&str`
+- Two commonly used types of strings
+    - `String` - owned
+    - `&str` - borrowed String slice
+- Must use an owned String to store in a `struct`
+- Use `&str` when passing to a function
+- Strings are by default borrowed
+- Use `to_owned()` or `String::from()` to create an owned copy of a string slice
+- Use an owned String when storing in a struct
+
+```rust
+fn print_it(data: &str) {
+    println!("{:?}", data);
+}
+
+fn main() {
+    print_it("a string slice");
+    let owned_string = "owned string".to_owned();
+    let another_owned = String::from("another");
+    print_it(&owned_string);
+    print_it(&another_string);
+}
+```
 
 ## Guessing game
 

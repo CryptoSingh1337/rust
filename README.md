@@ -700,6 +700,30 @@ fn main() {
 
 ```
 
+## Chapter - 7: Vector
+
+`Vector` is similar to `List`. It can only stores homogenous elements. We can create a vector using `vec!` macro or by using the `Vec::new()` function.
+
+1. Vectors contain multiple pieces of similar data.
+2. Data can be added or removed.
+3. The `vec!` macro can be used to make vectors.
+4. Use `for..in` to iterate through items of a vector.
+
+```rust
+fn main() {
+    let numbers = vec![10, 20, 30, 40];
+
+    for number in &numbers {
+        match number {
+            30 => println!("Number = thirty"),
+            _ => println!("Number = {:?}", number),
+        }
+    }
+    println!("Length of the vector = {:?}", numbers.len());
+}
+```
+> Note: If we are iteratoring vector using for loop so vector ownership got transfer to iterator and we are trying to access vector to print the length so that vector got deleted.
+
 ## Guessing game
 
 ### Take input

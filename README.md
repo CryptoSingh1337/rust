@@ -640,6 +640,66 @@ This will work perfectly fine because the owner of the `dull` is currently the `
 - Default behavior is to 'move' memory to a new owner.
     - Use an  ampersand `&` to allow code to `borrow` memory.
 
+## Chapter - 6: Impl keyword
+
+`Impl` allows us to implement functionality on enumerations and structures. In implementation block we can also use reference to self with the `&self`.
+This is similar to creating a method in a java class.
+
+#### `&self` v/s `Self`
+
+`&self` indicates the we already have the object of a particular type but `Self` indicates that we don't have object and we are creating a new one.
+
+```rust
+struct Temperature {
+    degrees_c: f32
+}
+
+impl Temperature {
+    // fn show_temp(temp: Temperature) {
+    //     println!("{:?} degrees C", temp.degrees_c);
+    // }
+
+    fn freezing() -> Self {
+        Self { degrees_c: -1.2 }
+    }
+
+    fn show_temp(&self) {
+        println!("{:?} degrees C", self.degrees_c);
+    }
+}
+
+fn main() {
+    let hot = Temperature { degrees_c: 40.2 };
+    // Temperature::show_temp(hot);
+    hot.show_temp();
+
+    let cold = Temperature::freezing();
+    cold.show_temp();
+}
+```
+
+#### How to create a constructor similar to new keyword in java
+
+We can use this same functionality but the function name will be new which will take the arguments as input.
+
+```rust
+struct Car {
+    weight: f32
+}
+
+impl Car {
+    
+    fn new(weight: f32) -> Self {
+        Car { weight }
+    }
+}
+
+fn main() {
+    let car = Car::new(10.9);
+}
+
+```
+
 ## Guessing game
 
 ### Take input

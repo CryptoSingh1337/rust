@@ -751,6 +751,62 @@ fn main() {
 }
 ```
 
+## Chapter - 9: Derive
+
+It is use to derive the functionality into an `enum` or `struct`. It is a special type of macro which is use to derive functionality.
+We can derive debug, clone, copy functionality.
+
+**Syntax:**
+```rust
+#[derive(Debug, Clone, Copy)]
+```
+
+- `Debug` - it is used when we want to print the `enum` or `struct` using print macro with debug output.
+
+```rust
+#[derive(Debug)]
+enum Position {
+    Director,
+    Manager,
+    Supervisor,
+    Worker
+}
+
+#[derive(Debug)]
+struct Employee {
+    position: Position,
+    work_hours: u8
+}
+
+fn main() {
+    let employee = Employee { position: Position::Worker, work_hours: 8 };
+    println!("{:?}", employee.position);   // Error, if we are not using derive
+    println!("{:?}", employee);
+}
+```
+> Note: All fields of struct must also derive the functionality which struct is deriving.
+
+- `Clone` & `Copy` - it is used to make a copy of the data which is stored in function or struct. Ownership is not going to transfer when we are passing the values to the struct or function, a copy is made is instead.
+
+```rust
+#[derive(Debug, Clone, Copy)]
+struct Employee {
+    name: String
+}
+
+fn print(employee: Employee) {
+    println!("{:?}", employee);
+}
+
+fn main() {
+    let employee = Employee { name: "Saransh".to_owned() };
+
+    print(employee);    // Ownership is not move to print function because it is using Clone and Copy trait
+    print(employee);
+}
+```
+> Note: When print function is called, a copy of employee is created then it is passed to the print function. Remember only use Clone and Copy derive when the size of the struct is small i.e., with 2-3 fields.
+
 ## Guessing game
 
 ### Take input

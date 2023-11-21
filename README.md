@@ -520,10 +520,45 @@ fn main() {
         1 => println!("It's 1"),
         2 => println!("It's 2"),
         4 => println!("It's 4"),
-        _ => println!("It's something else")    // Default case
+        other => println!("Other number: {:?}", other)    // Default case
     }
 }
 ```
+**Advance Match**
+
+We can match `enum` and `struct` based on some values they are having.
+
+```rust
+enum Discount {
+    Percent(f32),
+    Flat(i32)
+}
+
+struct Ticket {
+    event: String,
+    price: i32
+}
+
+fn main() {
+    let flat = Discount::Flat(2);
+    match flat {
+        Discount::Flat(2) => println!("flat 2"),
+        Discount::Flat(amount) => println!("flat discount of {:?}", amount),    // This implicity returns nothing
+        _ => ()                                                                 // Return nothing explicitly
+    }
+
+    let concert = Ticket {
+        event: "concert".to_owned(),
+        price: 50.0
+    };
+
+    match concert { 
+        Ticket { price: 50, event } => println!("event @ 50: {:?}", event),
+        Ticket { price, .. } => println!("price: {:?}", price)
+    }
+}
+```
+> Note: We can use `..` to ignore other fields while matching against `struct`
 
 ## Chapter - 3: Enums
 
@@ -560,7 +595,23 @@ enum Direction {
     Left(String),
     Right(String)
 }
+
+enum PromoDiscount {
+    NewUser,
+    Holiday(String)
+}
+
+enum Discount {
+    Percent(f64),
+    Flat(i32),
+    Promo(PromoDiscount),
+    Custom(String)
+}
 ```
+1. Enum variants can optionally contain data
+    i. The data can be another enum as well
+2. Can mix plain identifiers and data-containing varaints within the same enum
+3. More than one piece of data can be associated with a varaint
 
 ## Chapter - 4: Struct
 

@@ -382,6 +382,7 @@ fn add_one(x: i32) -> i32 {
     x + 1
 }
 ```
+> Note: We can use `rustup doc` to open the rust documentation
 
 ### 2.5 Control flow
 
@@ -858,6 +859,68 @@ fn main() {
 ```
 > Note: When print function is called, a copy of employee is created then it is passed to the print function. Remember only use Clone and Copy derive when the size of the struct is small i.e., with 2-3 fields.
 
+## Chapter - 10: Option
+
+**Definition:**
+```rust
+enum Option<T> {
+    Some(T),
+    None
+}
+```
+
+`Option` is similar to `Optional` class in Java. It is used when their is the use case of `null` because rust doesn't have the concept of `null` values.
+
+1. `Option` represents either some data or nothing.
+    i. Some (variable_name) - Data is available
+    ii. None - No data is available
+2. Useful when needing to work with optional data.
+3. Use `Option<type>` to declare an optional type.
+
+**Example - 1:**
+```rust
+struct Customer {
+    age: Option<i32>,
+    email: String
+}
+
+let mark = Customer {
+    age: Some(22), email: "mark@example.com".to_owned()
+};
+
+let becky = Customer {
+    age: None, email: "becky@example.com".to_owned()
+};
+
+match becky.age {
+    Some(age) => println!("customer is {:?} years old", age),
+    None => println!("customer age not provided")
+}
+```
+
+**Example - 2:**
+```rust
+struct GroceryItem {
+    name: String,
+    qty: i32
+}
+
+fn find_quantity(name: &str) -> Option<i32> {
+    let groceries = vec![
+        GroceryItem { name: "bananas".to_owned(), qty: 4 },
+        GroceryItem { name: "bananas".to_owned(), qty: 12 },
+        GroceryItem { name: "bananas".to_owned(), qty: 1 }
+    ];
+
+    for item in groceries {
+        if item.name == name {
+            return Some(item.qty);
+        }
+    }
+    None
+}
+```
+
 ## Guessing game
 
 ### Take input
@@ -934,7 +997,7 @@ loop {
         Ordering::Greater => println!("Too big!")
     }
 }
-```
+``` 
 
 ### Handle invalid input
 If we try to parse a string into an integer with the non-digit value then it will throw an error.

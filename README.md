@@ -921,6 +921,74 @@ fn find_quantity(name: &str) -> Option<i32> {
 }
 ```
 
+## Chapter - 11: Result
+
+1. A data type that contains one of two types of data:
+    - "Successful" data
+    - "Error" data
+2. Used in scenarios where an action needs to be taken, but has the possibility of failure
+    - Copying a file
+    - Connecting to a website
+
+**Definition:**
+```rust
+enum Result<T, E> {
+    Ok(T),
+    Err(E)
+}
+```
+
+**Example - 1:**
+```rust
+fn get_sound(name: &str) -> Result<SoundData, String> {
+    if name == "alert" {
+        Ok(SoundData::new("alert"))
+    } else {
+        Err("Unable to find sound data".to_owned())
+    }
+}
+
+let sound = get_sound("alert");
+match sound {
+    Ok(_) => println!("Eound data located"),
+    Err(e) => println!("Error: {:?}", e)
+}
+```
+
+**Example - 2:**
+```rust
+#[derive(Debug)]
+enum MenuChoice {
+    MainMenu,
+    Start,
+    Quit
+}
+
+fn get_choice(input: &str) -> Result<MenuChoice, String> {
+    match input {
+        "mainmenu" => Ok(MenuChoice::MainMenu),
+        "start" => Ok(MenuChoice::Start),
+        "quit" => Ok(MenuChoice::Quit),
+        _ => Err("Menu choice not found".to_owned())
+    }
+}
+
+fn print_choice(choice: &MenuChoice) {
+    println!("Choice: {:?}", choice);
+}
+
+fn pick_choice(input: &str) -> Result<(), String> {
+    let choice: MenuChoice = get_choice(input)?;
+    print_choice(&choice);
+    Ok(())
+}
+
+fn main() {
+    pick_choice("start");
+}
+```
+> Note: `?` denotes that we are not care about the `Err` Result so rust compiler automatically decompile that to `Ok`. If there is any error then it will directly result as `Err`.
+
 ## Guessing game
 
 ### Take input

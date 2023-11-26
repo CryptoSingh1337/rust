@@ -96,7 +96,15 @@ fn authorize(
     employee_name: &str,
     location: ProtectedLocation,
 ) -> Result<AuthorizationStatus, String> {
-    // put your code here
+    let database = Database::connect()?;
+    let employee = database.find_employee(employee_name)?;
+    let keycard = database.get_keycard(&employee)?;
+    let location_access_level = ProtectedLocation::required_access_level(&location);
+    if keycard.access_level >= location_access_level {
+        Ok(AuthorizationStatus::Allow)
+    } else {
+        Ok(AuthorizationStatus::Deny)
+    }
 }
 
 fn main() {
@@ -110,7 +118,10 @@ fn main() {
     // She doesn't have a keycard, so this should be an error.
     let catherine_authorized = authorize("Catherine", ProtectedLocation::Warehouse);
 
+    let ayush_authorized = authorize("Ayush", ProtectedLocation::Warehouse);
+
     println!("{anita_authorized:?}");
     println!("{brody_authorized:?}");
     println!("{catherine_authorized:?}");
+    println!("{ayush_authorized:?}");
 }

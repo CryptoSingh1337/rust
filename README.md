@@ -989,6 +989,37 @@ fn main() {
 ```
 > Note: `?` denotes that we are not care about the `Err` Result so rust compiler automatically decompile that to `Ok`. If there is any error then it will directly result as `Err`.
 
+## Chapter - 12: HashMap
+
+**Syntax:**
+```rust
+let mut people = HashMap::new();
+people.insert("Susan", 21);
+people.insert("Ed", 13);
+people.insert("William", 17);
+people.remove("Susan");
+
+// Retrieve data using Match expression
+match people.get("Ed") => {
+    Some(age) => println!("Age = {:?}", age),
+    None => println!("Not found")
+}
+
+// Iterate the hashmap
+
+for (name, age) in people.iter() {
+    println!("Name: {:?}, age: {:?}", name, age);
+}
+
+for name in people.keys() {
+    println!("Name: {:?}", name);
+}
+
+for age in people.values() {
+    println!("Age: {:?}", age);
+}
+```
+
 ## Guessing game
 
 ### Take input

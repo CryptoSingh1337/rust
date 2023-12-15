@@ -1020,6 +1020,64 @@ for age in people.values() {
 }
 ```
 
+## Chapter - 13: Combinator
+
+#### Closure
+
+`Closures` are similar to function but they are defined inside another function. These are similar to lambda functions in `Java`. We can pass closure as a function parameter.
+
+**Syntax:**
+We use pipes `||` to define a closure.
+
+```rust
+fn add_fn(a: i32, b: i32) -> i32 {
+    a + b
+}
+
+fn main() {
+    let addition = add_fn(1, 1);
+
+    let add = |a: i32, b: i32| -> i32 {     // This closure is same as function it has name, type etc.
+        a + b
+    }
+    let addition = add(1, 1);
+
+    let add = |a, b| a + b;                 // This is also a closure but with in concise manner
+    let addition = add(1, 1);               // as rust compiler implicitly determine the types of parameters and the return type
+}
+```
+
+#### Map combinator
+
+Map combinator are use to map an `Option` type, similar to `map` intermediate stream operator.
+It is an implementation for `Option` enum.
+
+**Syntax:**
+```rust
+fn maybe_word() -> Option<String> {
+    Some("Hello, world!")
+}
+
+fn main() {
+    let word_length: Option<i32> = maybe_word()
+        .map(|word| word.len())
+        .map(|len| len * 2);
+}
+```
+
+#### Option combinators
+```rust
+fn main() {
+    let a = Some(1);
+    let a_is_some = a.is_some();
+    let a_is_none = a.is_none();
+    let a_mapped = a.map(|num| num + 1);
+    let a_filtered = a.filter(|num| num == &1);
+    let a_or_else = a.or_else(|| Some(2));
+    let unwrapped = a.unwrap_or_else(|| 0);
+}
+```
+
 ## Guessing game
 
 ### Take input

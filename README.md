@@ -479,6 +479,22 @@ fn main() {
 }
 ```
 
+##### `While let` loop
+```rust
+let mut data = Some(3);
+while let Some(i) = data {
+    println!("loop");       // Only print only 1 time
+    data = None
+}
+
+let numbers = vec![1, 2, 3];
+let mut number_iter = number.iter();
+while let Some(num) = number_iter.next() {
+    println!("Number: {num}");
+}
+```
+>**Note:** This is useful when we are working with iterators.
+
 ##### `For` loop
 ```rust
 fn main() {
@@ -522,6 +538,22 @@ fn main() {
         2 => println!("It's 2"),
         4 => println!("It's 4"),
         other => println!("Other number: {:?}", other)    // Default case
+    }
+}
+```
+
+>**Note:** We can use if let block also if we only care about the one variation
+
+```rust
+fn main() {
+    let maybe_user = Some("John");
+    match maybe_user {
+        Some(user) => println!("User: {user}"),
+        None => println!("No user")
+    }
+
+    if let Some(user) = maybe_user {
+        println!("User: {user}")
     }
 }
 ```
@@ -1075,6 +1107,77 @@ fn main() {
     let a_filtered = a.filter(|num| num == &1);
     let a_or_else = a.or_else(|| Some(2));
     let unwrapped = a.unwrap_or_else(|| 0);
+}
+```
+
+## Chapter - 14: Iterators
+
+We can use iterators to iterate the any data structures.
+
+**Syntax:**
+```rust
+fn main() {
+    let numbers = vec![1, 2, 3, 4, 5];
+
+    let plus_one: Vec<_> = numbers
+        .iter()
+        .map(|num| num + 1)
+        .collect();
+}
+```
+>**Note:** We need to define type annotations because `iter()` & `collect()` are used for any data structure generically.
+
+#### Methods:
+
+- `map` - create a new value from the existing one.
+- `filter` - filter out all the values which satisfies the predicate i.e., which return true.
+- `find` - it finds the first element which satisfies the predicate condition it returns the `Option` value i.e., `Some` or `None`.
+- `count` - count the no of items in the data structure
+- `last` - return the last item its return type is `Option` i.e., `Some` or `None`.
+- `min` - return the minimum value item.
+- `max` - return the maximum value item.
+- `take` - it take only the no of values which is provided as the argument.
+
+## Chapter - 15: Ranges
+
+It is used to generate the values between the given range.
+
+**Syntax:**
+```rust
+fn main() {
+    let range: Range<i32> = 1..4;
+    let range: RangeInclusive<i32> = 1..=3;  // This will include the last value as well
+
+    for num in range {
+        println!({num});
+    }
+}
+```
+
+## Chapter - 16: Inline Modules
+
+Inline Modules are used to organize the source code. We can group the functions, structs, enum in separate modules.
+We can create a separate file for each module.
+
+**Syntax:**
+```rust
+mod math {
+    use std::collections::HashMap;  // If we want to use some other module
+    pub fn add(a: i32, b: i32) {
+        a + b
+    }
+
+    pub fn subtract(a: i32, b: i32) {
+        a - b
+    }
+}
+
+fn main () {
+    use math::add;
+    // use math::*;     // Wildcard to include all the functions of a module
+
+    println!("{}", add(1, 5));
+    println!("{}", math::subtract(1, 5));
 }
 ```
 

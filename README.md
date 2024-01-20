@@ -1181,6 +1181,49 @@ fn main () {
 }
 ```
 
+## Chapter - 17: Testing
+
+In Rust for testing first we need to create a test module with the test configuration `#[cfg(test)]` macro to 
+compile only test module while testing and each test method should be annotated with `#[test]` macro.
+
+Now for calling the method we need to first import the function, we can use `use crate::*` to import all the code which is in the current file.
+
+**Syntax:**
+```rust
+fn all_caps(word: &str) -> String {
+    word.to_uppercase()
+}
+
+fn main() {
+
+}
+
+#[cfg(test)]
+mod test {
+    use crate::*;
+
+    #[test]
+    fn check_all_caps() {
+        let result = all_caps("hello");
+        let expected = String::from("HELLO");
+        assert_eq!(result, expected, "string should be all uppercase");
+    }
+}
+```
+
+## Chapter - 18: External Modules
+
+- Modules are organized hierarchically
+    - Use `super` to go up one level
+    - Use `crate` to start from the top
+- The `as` keyword can be used to create an alias for a module
+- The `mod` keyword is used to declare a module
+    - No curly braces for external modules
+- Modules can be re-exported with the `use` keyword
+- `pub` indicates the module may be accessed from anywhere
+    - Omitting `pub` restricts access to only the containing module and sub-modules
+
+
 ## Guessing game
 
 ### Take input

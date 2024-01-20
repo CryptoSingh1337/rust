@@ -23,12 +23,44 @@ fn clamp(n: i32, lower: i32, upper: i32) -> i32 {
 
 /// Divides a and b.
 fn div(a: i32, b: i32) -> Option<i32> {
+    if b == 0 {
+        return None;
+    }
     Some(a / b)
 }
 
 /// Takes two strings and places them immediately one after another.
 fn concat(first: &str, second: &str) -> String {
-    format!("{} {}", first, second)
+    format!("{}{}", first, second)
 }
 
 fn main() {}
+
+#[cfg(test)]
+mod test {
+    use crate::*;
+
+    #[test]
+    fn check_clamp_less_than_lower() {
+        let result = clamp(10, 100, 200);
+        assert_eq!(result, 100, "should be 100");
+    }
+
+    #[test]
+    fn check_clamp_greater_than_upper() {
+        let result = clamp(250, 100, 200);
+        assert_eq!(result, 200, "should be 200");
+    }
+
+    #[test]
+    fn check_div_by_zero() {
+        let result = div(10, 0);
+        assert_eq!(result, None, "should be none");
+    }
+
+    #[test]
+    fn check_concat() {
+        let result = concat("hello", "world");
+        assert_eq!(result, "helloworld", "should be helloworld");
+    }
+}

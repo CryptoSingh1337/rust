@@ -1226,6 +1226,26 @@ mod test {
 
 ![external_module_example](/screenshots/external-mod.png)
 
+## Chapter - 19: User input
+
+Getting user input requires to use the io module which internally uses syscalls to get the data from the keyboard.
+
+Example:
+```rust
+fn get_input() -> io::Result<String> {
+    let mut buffer = String::new();
+    io::stdin().read_line(&mut buffer)?;
+    Ok(buffer.trim().to_owned())
+}
+```
+
+In the above example:
+- Buffer is use to store the data which we got from std input
+- Since we are passing it to `read_lines` function so it should be mutable and with mutable reference
+- `?` is use when we are getting `Result` and we don't want to handle that, just stop execution if it fails
+- `trim` is used because newline is also available in buffer to remove that `trim` is used
+- Return type is `io::Result` because there is a possibility of multiple error type so `io` module provides the wrapper
+around `Result<T, E>`
 
 ## Guessing game
 

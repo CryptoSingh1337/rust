@@ -1222,6 +1222,9 @@ mod test {
 - Modules can be re-exported with the `use` keyword
 - `pub` indicates the module may be accessed from anywhere
     - Omitting `pub` restricts access to only the containing module and sub-modules
+- `pub use` in mod file is use to re-export the module to the same namespace
+
+![external_module_example](/screenshots/external-mod.png)
 
 
 ## Guessing game

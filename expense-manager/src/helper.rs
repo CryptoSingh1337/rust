@@ -19,7 +19,9 @@ impl Bill {
 
 pub fn get_input() -> io::Result<String> {
     let mut buffer = String::new();
-    io::stdin().read_line(&mut buffer)?;
+    while io::stdin().read_line(&mut buffer).is_err() {
+        println!("Please enter your data again");
+    }
     Ok(buffer.trim().to_owned())
 }
 

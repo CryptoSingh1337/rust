@@ -62,9 +62,6 @@ pub fn update(bills: &mut HashMap<String, Bill>) {
 }
 
 pub fn total_bill(bills: &HashMap<String, Bill>) {
-    let mut total: f64 = 0.0;
-    for bill in bills {
-        total += bill.1.amount
-    }
+    let total = bills.values().map(|bill| bill.amount).sum::<f64>();
     println!("Total bill: {total}");
 }

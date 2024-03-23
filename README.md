@@ -1247,6 +1247,85 @@ In the above example:
 - Return type is `io::Result` because there is a possibility of multiple error type so `io` module provides the wrapper
 around `Result<T, E>`
 
+## Chapter - 20: Traits
+
+- A way to specify that some functionality exists
+- Used to standardize functionality across multiple different types
+    - Standardization permits functions to operate on multiple different types
+        - Code de-duplication
+
+- Traits define similar functionality for different types
+- Trait functions are just regular functions
+    - Can accept arguments and return values
+- Use impl Trait as a function argument to pass data via trait
+
+This is similar to interfaces in Java
+
+**Syntax:**
+```rust
+trait <Name> {
+    fn function_1();
+    fn function_2();
+}
+```
+
+Example:
+```rust
+trait Noise {
+    fn make_noise(&self);
+}
+
+struct Person;
+impl Noise for Person {
+    fn make_noise(&self) {
+        println!("hello");
+    }
+}
+
+struct Dog;
+impl Noise for Dog {
+    fn make_noise(&self) {
+        println!("woof");
+    }
+}
+
+fn hello(noisy: impl Noise) {
+    noisy.make_noise();
+}
+
+fn main() {
+    hello(Person {});
+    hello(Dog {});
+}
+```
+
+### Default Trait
+
+Default trait is used when there is a use case of default values
+
+```rust
+struct Box {
+    weight: f64
+}
+
+impl Box {
+    fn new(weight: f64) -> Self {
+        Self { weight }
+    }
+}
+
+impl Default for Box {
+    fn default() -> Self {
+        Self { weight: 3.0 }
+    }
+}
+
+fn main() {
+    let box = Box::new(10.0);
+    let default_box = Box::default();
+}
+```
+
 ## Guessing game
 
 ### Take input

@@ -12,4 +12,43 @@
 // * Use a single function to print out the perimeter of the shapes
 //   * The function must utilize impl trait as a function parameter
 
-fn main() {}
+trait Perimeter {
+    fn calculate_perimeter(&self) -> f64;
+}
+
+struct Square {
+    side: f64,
+}
+
+impl Perimeter for Square {
+    fn calculate_perimeter(&self) -> f64 {
+        4 as f64 * self.side
+    }
+}
+
+struct Triangle {
+    a: f64,
+    b: f64,
+    c: f64,
+}
+
+impl Perimeter for Triangle {
+    fn calculate_perimeter(&self) -> f64 {
+        self.a + self.b + self.c
+    }
+}
+
+fn calculate_perimeter(shape: impl Perimeter) {
+    println!("Perimeter = {:?}", shape.calculate_perimeter());
+}
+
+fn main() {
+    let square = Square { side: 4 as f64 };
+    let triangle = Triangle {
+        a: 3.0,
+        b: 3.0,
+        c: 3.0,
+    };
+    calculate_perimeter(square);
+    calculate_perimeter(triangle);
+}

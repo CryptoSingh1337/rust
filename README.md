@@ -1326,6 +1326,80 @@ fn main() {
 }
 ```
 
+## Chapter - 21: Generic Functions
+
+- Generics let you write one function to work with multiple types of data
+- Generic functions are bound or constrained by the traits
+    - Only able to work with data that implements the trait
+
+**Syntax:**
+```rust
+fn function(param1: impl Trait1, param2: impl Trait2) {
+    
+}
+
+fn function<T: Trait1, U: Trait2>(param1: T, param2: U) {
+
+}
+
+// multiple trait bounds
+fn function<T, U>(param1: T, param2: U)
+where
+    T: Trait1 + Trait2,
+    U: Trait1 + Trait2 + Trait3 {
+    
+}
+```
+
+Example:
+```rust
+trait Move {
+    fn move_to(&self, x: i32, y: i32);
+}
+
+struct Snake;
+impl Move for Snake {
+    fn move_to(&self, x: i32, y: i32) {
+        println!("Slither to ({}, {})", x, y);
+    }
+}
+
+struct Grasshopper;
+impl Move for Grasshopper {
+    fn move_to(&self, x: i32, y: i32) {
+        println!("Hop to ({}, {})", x, y);
+    }
+}
+
+// fn make_move(thing: impl Move, x: i32, y: i32) {
+//     thing.move_to(x, y);
+// }
+
+// Generic version
+fn make_move<T: Move>(thing: T, x: i32, y: i32) {
+    thing.move_to(x, y);
+}
+
+fn main() {
+    make_move(Snake {}, 1, 2);
+    make_move(Grasshopper {}, 1, 2);
+}
+```
+
+Internally compiler creates the two functions with the name `make_move` but the type of first parameter is different
+for 1st function the parameter type is `Snake` and for second one the parameter type is `Grasshopper`. This process 
+is called `Monomorphization`.
+
+```rust
+fn make_move(thing: Snake, x: i32, y: i32) {
+    thing.move_to(x, y);
+}
+
+fn make_move(thing: Grasshopper, x: i32, y: i32) {
+    thing.move_to(x, y);
+}
+```
+
 ## Guessing game
 
 ### Take input
